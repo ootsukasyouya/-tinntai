@@ -13,10 +13,12 @@ class ApartmentsController < ApplicationController
   # GET /apartments/new
   def new
     @apartment = Apartment.new
+    2.times{@apartment.stations.build}
   end
 
   # GET /apartments/1/edit
   def edit
+    @apartment.stations.build
   end
 
   # POST /apartments or /apartments.json
@@ -64,6 +66,6 @@ class ApartmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def apartment_params
-      params.require(:apartment).permit(:name, :rent, :address, :age, :remarks)
+      params.require(:apartment).permit(:name, :rent, :address, :age, :remarks, stations_attributes: [:id,:name, :route, :time])
     end
 end
